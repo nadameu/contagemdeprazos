@@ -1,0 +1,13 @@
+﻿Copyright (C) 2008-2009 Paulo Roberto Maurici Junior
+
+"Contagem de Prazos" é um software livre: você pode redistribui-lo e/ou modifi-
+cá-lo sob os termos da Licença Pública Geral GNU conforme publicada pela Free
+Software Foundation, tanto a versão 3 da Licença, ou (a seu critério) qualquer
+outra versão mais recente.
+
+"Contagem de Prazos" é distribuído na esperança de ser útil, mas SEM QUALQUER
+GARANTIA; sem mesmo a garantia implícita de VALOR COMERCIAL ou ADEQUAÇÃO PARA UM
+PROPÓSITO EM PARTICULAR. Veja a Licença Pública Geral GNU para mais detalhes.
+
+Você deve ter recebido uma cópia da Licença Pública Geral GNU com este programa.
+Se não, veja <http://www.gnu.org/licenses/>.

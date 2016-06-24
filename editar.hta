@@ -1,0 +1,129 @@
+<html>
+<!--
+Este aplicativo serve para edição dos feriados e suspensão de prazos.
+
+Copyright (C) 2008 Paulo Roberto Maurici Junior
+
+Este aplicativo faz parte do programa "Contagem de Prazos".
+
+"Contagem de Prazos" é um software livre: você pode redistribui-lo e/ou modifi-
+cá-lo sob os termos da Licença Pública Geral GNU conforme publicada pela Free
+Software Foundation, tanto a versão 3 da Licença, ou (a seu critério) qualquer
+outra versão mais recente.
+
+"Contagem de Prazos" é distribuído na esperança de ser útil, mas SEM QUALQUER
+GARANTIA; sem mesmo a garantia implícita de VALOR COMERCIAL ou ADEQUAÇÃO PARA UM
+PROPÓSITO EM PARTICULAR. Veja a Licença Pública Geral GNU para mais detalhes.
+
+Você deve ter recebido uma cópia da Licença Pública Geral GNU com este programa.
+Se não, veja <http://www.gnu.org/licenses/>.
+-->
+    <head>
+        <title>Contagem de Prazos v4.0 - Edição de feriados e suspensões</title>
+        <HTA:APPLICATION ID="appPrazosRegras"
+        APPLICATIONNAME="Edição de feriados e suspensões"
+        BORDER="thick"|"thin"|"dialog"|"none"|"thick"
+        BORDERSTYLE="normal"|"dialog"|"complex"|"raised"|"static"|"sunken"
+        CAPTION="yes"
+        CONTEXTMENU="no"
+        ICON="sysdm.cpl"
+        INNERBORDER="no"
+        MAXIMIZEBUTTON="yes"
+        MINIMIZEBUTTON="yes"
+        SCROLL="yes"
+        SCROLLFLAT="no"
+        SELECTION="no"
+        SHOWINTASKBAR="yes"
+        SINGLEINSTANCE="yes"
+        SYSMENU="yes"
+        VERSION="4.0"
+        WINDOWSTATE="normal"|"maximize"|"minimize"/>
+        <link rel="stylesheet" type="text/css" href="programa/include/estilo.css" />
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <script language="javascript" type="text/javascript" src="programa/include/prazo.js"></script>
+        <script language="javascript" type="text/javascript" src="programa/include/regras.js"></script>
+        <script language="javascript" type="text/javascript" src="programa/include/editar.js"></script>
+        <script language="javascript">window.onload = Editar.init;</script>
+        <script language="vbscript">
+            Function YesNo(question, title)
+                YesNo = MsgBox(question, VBYesNo + VBQuestion + VBDefaultButton2 + VBSystemModal, title)
+            End Function
+        </script>
+    </head>
+    <body>
+        <table border="1" cellpadding="2" cellspacing="0">
+            <caption>Feriados que se repetem todos os anos</caption>
+            <thead>
+                <tr>
+                    <th>Data(s)</th>
+                    <th>Motivo</th>
+                    <th>Prazos suspensos?</th>
+                    <th>Fundamento</th>
+                </tr>
+            </thead>
+            <tbody id="eVariable">
+                <tr>
+                    <td>Variável</td>
+                    <td>Carnaval</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Variável</td>
+                    <td>Semana Santa</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Variável</td>
+                    <td>Corpus Christi</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+            <tbody id="eYearly">
+            </tbody>
+            <tfoot id="aYearly">
+                <tr>
+                    <th colspan="4">Adicionar</th>
+                </tr>
+            </tfoot>
+        </table>
+        <table border="1" cellpadding="2" cellspacing="0">
+            <caption>Exceções aos feriados que se repetem todos os anos</caption>
+            <thead>
+                <tr>
+                    <th>Data(s)</th>
+                </tr>
+            </thead>
+            <tbody id="eRemove">
+            </tbody>
+            <tfoot id="aRemove">
+                <tr>
+                    <th colspan="4">Adicionar</th>
+                </tr>
+            </tfoot>
+        </table>
+        <table border="1" cellpadding="2" cellspacing="0">
+            <caption>Feriados específicos de cada ano</caption>
+            <thead>
+                <tr>
+                    <th>Data(s)</th>
+                    <th>Motivo</th>
+                    <th>Prazos suspensos?</th>
+                    <th>Fundamento</th>
+                </tr>
+            </thead>
+            <tbody id="eOnce">
+            </tbody>
+            <tfoot id="aOnce">
+                <tr>
+                    <th colspan="4">Adicionar</th>
+                </tr>
+            </tfoot>
+        </table>
+    </body>
+    <!--
+    vim:enc=utf-8:sw=4:ts=4:expandtab:
+    -->
+</html>

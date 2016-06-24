@@ -1,0 +1,117 @@
+<html>
+<!--
+Este aplicativo se presta à contagem de prazos conforme as regras em vigor no
+ordenamento jurídico brasileiro, bem como para o cálculo de termo final de par-
+celamentos.
+
+Copyright (C) 2008 Paulo Roberto Maurici Junior
+
+Este aplicativo faz parte do programa "Contagem de Prazos".
+
+"Contagem de Prazos" é um software livre: você pode redistribui-lo e/ou modifi-
+cá-lo sob os termos da Licença Pública Geral GNU conforme publicada pela Free
+Software Foundation, tanto a versão 3 da Licença, ou (a seu critério) qualquer
+outra versão mais recente.
+
+"Contagem de Prazos" é distribuído na esperança de ser útil, mas SEM QUALQUER
+GARANTIA; sem mesmo a garantia implícita de VALOR COMERCIAL ou ADEQUAÇÃO PARA UM
+PROPÓSITO EM PARTICULAR. Veja a Licença Pública Geral GNU para mais detalhes.
+
+Você deve ter recebido uma cópia da Licença Pública Geral GNU com este programa.
+Se não, veja <http://www.gnu.org/licenses/>.
+-->
+    <head>
+        <title>Contagem de Prazos v4.0</title>
+        <HTA:APPLICATION ID="appPrazos"
+        APPLICATIONNAME="Contagem de Prazos"
+        BORDER="thick"|"thin"|"dialog"|"none"|"thick"
+        BORDERSTYLE="normal"|"dialog"|"complex"|"raised"|"static"|"sunken"
+        CAPTION="yes"
+        CONTEXTMENU="no"
+        ICON="timedate.cpl"
+        INNERBORDER="no"
+        MAXIMIZEBUTTON="yes"
+        MINIMIZEBUTTON="yes"
+        SCROLL="yes"
+        SCROLLFLAT="no"
+        SELECTION="no"
+        SHOWINTASKBAR="yes"
+        SINGLEINSTANCE="yes"
+        SYSMENU="yes"
+        VERSION="4.0"
+        WINDOWSTATE="normal"|"maximize"|"minimize"/>
+        <link rel="stylesheet" type="text/css" href="include/estilo.css" />
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <script language="javascript" type="text/javascript" src="include/prazo.js"></script>
+        <script language="javascript" type="text/javascript" src="include/regras.js"></script>
+        <script language="javascript" type="text/javascript">window.onload = init;</script>
+    </head>
+    <body>
+        <button id="oParcelamento" tabindex="7" accesskey="p">Calcular <u>p</u>arcelamento</button><br />
+        <hr />
+        <label for="oDate" accesskey="d"><u>D</u>ata de início: </label><input id="oDate" size="10" maxlength="10" tabindex="1"/><br />
+        Intimação: <input type="radio" class="radio" id="oComum" name="intimacao" tabindex="2" checked="checked"/><label id="lblComum" for="oComum" accesskey="o">c<u>o</u>mum</label> <input type="radio" class="radio" id="oBoletim" name="intimacao" tabindex="3" /><label id="lblBoletim" for="oBoletim" accesskey="b">por <u>b</u>oletim</label> <input type="radio" class="radio" id="oEproc" name="intimacao" tabindex="4" /><label id="lblEproc" for="oEproc" accesskey="e"><u>e</u>letrônica e-Proc</label><br />
+        <label for="oDays" accesskey="c"><u>C</u>ontagem: </label><input id="oDays" size="2" maxlength="3" value="10" tabindex="5"/> dias&nbsp;<button id="oCalcular" tabindex="6">Calcular</button><br />        
+            <div id="result" style="display: none;">
+            <table border="1" cellpadding="1" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th id="oPreviousMonth">&lt;</th>
+                        <th id="oMonth" colspan="5"></th>
+                        <th id="oNextMonth">&gt;</th>
+                    </tr>
+                    <tr>
+                        <th>D</th>
+                        <th>S</th>
+                        <th>T</th>
+                        <th>Q</th>
+                        <th>Q</th>
+                        <th>S</th>
+                        <th>S</th>
+                    </tr>
+                </thead>
+                <tbody id="oCalendar">
+                </tbody>
+            </table>
+            <small>Passe o mouse sobre os dias para ver sua descrição</small><br />
+            <table class="legenda" border="0" cellpadding="0" cellspacing="5">
+                <tr>
+                    <td>&nbsp;&nbsp;DD&nbsp;&nbsp;</td>
+                    <td colspan="2">Dia útil</td>
+                </tr>
+                <tr>
+                    <td class="feriado">&nbsp;&nbsp;DD&nbsp;&nbsp;</td>
+                    <td colspan="2">Dia sem expediente forense</td>
+                </tr>
+                <tr>
+                    <td class="suspensao">&nbsp;&nbsp;DD&nbsp;&nbsp;</td>
+                    <td colspan="2">Dia com prazo suspenso</td>
+                </tr>
+                <tr>
+                    <td class="first">&nbsp;&nbsp;DD&nbsp;&nbsp;</td>
+                    <td>Dia em que foi (ou presumiu-se) realizado o ato:</td>
+                    <th id="oGoto"></td>
+                </tr>
+                <tr>
+                    <td class="count">&nbsp;&nbsp;DD&nbsp;&nbsp;</td>
+                    <td colspan="2">Dias da contagem do prazo</td>
+                </tr>
+                <tr>
+                    <td class="last">&nbsp;&nbsp;DD&nbsp;&nbsp;</td>
+                    <td>Último dia da contagem:</td>
+                    <th id="oGotoLast"></td>
+                </tr>
+                <tr>
+                    <td class="transito">&nbsp;&nbsp;DD&nbsp;&nbsp;</td>
+                    <td>Data do trânsito, se for o caso:</td>
+                    <th id="oGotoTransito"></td>
+                </tr>
+            </table>
+        </div>
+        <div id="popup">
+        </div>
+    </body>
+    <!--
+    vim:enc=utf-8:sw=4:ts=4:expandtab:
+    -->
+</html>

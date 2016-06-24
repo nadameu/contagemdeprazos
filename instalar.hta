@@ -1,0 +1,151 @@
+<html>
+<!--
+Este aplicativo cria atalhos para o programa "Contagem de Prazos" na Área de
+Trabalho, na Barra "Inicialização Rápida" e na pasta "Prazos" do "Menu Iniciar
+do Microsoft(R) Windows(R).
+
+Copyright (C) 2008 Paulo Roberto Maurici Junior
+
+Este aplicativo faz parte do programa "Contagem de Prazos".
+
+"Contagem de Prazos" é um software livre: você pode redistribui-lo e/ou modifi-
+cá-lo sob os termos da Licença Pública Geral GNU conforme publicada pela Free
+Software Foundation, tanto a versão 3 da Licença, ou (a seu critério) qualquer
+outra versão mais recente.
+
+"Contagem de Prazos" é distribuído na esperança de ser útil, mas SEM QUALQUER
+GARANTIA; sem mesmo a garantia implícita de VALOR COMERCIAL ou ADEQUAÇÃO PARA UM
+PROPÓSITO EM PARTICULAR. Veja a Licença Pública Geral GNU para mais detalhes.
+
+Você deve ter recebido uma cópia da Licença Pública Geral GNU com este programa.
+Se não, veja <http://www.gnu.org/licenses/>.
+-->
+    <head>
+        <title>Contagem de Prazos v4.0 - Instalação</title>
+        <HTA:APPLICATION ID="appPrazosInstall"
+        APPLICATIONNAME="Contagem de Prazos - Instalação"
+        BORDER="thick"|"thin"|"dialog"|"none"|"thick"
+        BORDERSTYLE="normal"|"dialog"|"complex"|"raised"|"static"|"sunken"
+        CAPTION="yes"
+        CONTEXTMENU="no"
+        ICON="appwiz.cpl"
+        INNERBORDER="no"
+        MAXIMIZEBUTTON="yes"
+        MINIMIZEBUTTON="yes"
+        SCROLL="yes"
+        SCROLLFLAT="no"
+        SELECTION="no"
+        SHOWINTASKBAR="yes"
+        SINGLEINSTANCE="yes"
+        SYSMENU="yes"
+        VERSION="4.0"
+        WINDOWSTATE="normal"|"maximize"|"minimize"/>
+        <link rel="stylesheet" type="text/css" href="programa/include/estilo.css" />
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <script language="javascript">
+// {{{ createLink()
+/**
+ * Cria um atalho para o programa
+ * 
+ * @param String Pasta onde será criado o link
+ */
+function createLink(sLinkFolder)
+{
+    /*
+     * Objeto FileSystem
+     */
+    var oFSO = new ActiveXObject('Scripting.FileSystemObject');
+    /*
+     * Pasta do script atual
+     */
+    var sScriptFolder = oFSO.getFolder('.').path;
+    /*
+     * Cria a pasta se ela não existir
+     */
+    if (!oFSO.FolderExists(sLinkFolder)) {
+        oFSO.CreateFolder(sLinkFolder);
+    }
+    oFSO = null;
+    /*
+     * Objeto Shell
+     */
+    var oShell = new ActiveXObject('WScript.Shell');
+    /*
+     * Cria o atalho
+     */
+    var oShortcut = oShell.CreateShortcut(sLinkFolder + "\\Contagem de prazos.lnk");
+    oShortcut.TargetPath = sScriptFolder + '\\programa\\prazo.hta';
+    oShortcut.IconLocation = 'timedate.cpl';
+    oShortcut.Description = 'Conta prazos processuais e de parcelamentos';
+    oShortcut.Save()
+}
+// }}}
+// {{{ deleteOldLinks()
+/**
+ * Apaga os links antigos (1ª Vara Federal de Itajaí/SC)
+ */
+function deleteOldLinks(sLinkFolder)
+{
+    /*
+     * Objeto FileSystem
+     */
+    var oFSO = new ActiveXObject('Scripting.FileSystemObject');
+    document.getElementById('messages').innerHTML  += '<h3>Verificando a existência de links antigos... </h3>';
+    var oOldLinksDeleted = false;
+    if (oFSO.FileExists(sLinkFolder + '\\Cálculo de Prazos (XP).lnk')) {
+        oFSO.DeleteFile(sLinkFolder + '\\Cálculo de Prazos (XP).lnk');
+        oOldLinksDeleted = true;
+    }
+    if (oFSO.FileExists(sLinkFolder + '\\Cálculo de Prazos.lnk')) {
+        oFSO.DeleteFile(sLinkFolder + '\\Cálculo de Prazos.lnk');
+        oOldLinksDeleted = true;
+    }
+    if (oOldLinksDeleted) {
+        document.getElementById('messages').innerHTML  += '<h4>Excluído(s).</h4>\n';
+    } else {
+        document.getElementById('messages').innerHTML  += '<h4>Não encontrados.</h4>\n';
+    }
+    oFSO = null;
+}
+// }}}
+        </script>
+        <script type="text/javascript" for="window" event="onload()">
+// {{{ Inicialização do script
+/*
+ * Objeto Shell
+ */
+var oShell = new ActiveXObject('WScript.Shell');
+/*
+ * Pasta "Inicialização rápida"
+ */
+var sLinkFolder = oShell.ExpandEnvironmentStrings('%APPDATA%\\Microsoft\\Internet Explorer\\Quick Launch');
+deleteOldLinks(sLinkFolder);
+document.getElementById('messages').innerHTML  += '<h3>Criando atalho na barra "Inicialização rápida"...</h3>\n';
+createLink(sLinkFolder);
+document.getElementById('messages').innerHTML  += '<h4>Ok.</h4>\n';
+/*
+ * Desktop
+ */
+var sLinkFolder = oShell.SpecialFolders('AllUsersDesktop');
+document.getElementById('messages').innerHTML  += '<h3>Criando atalho na Área de Trabalho...</h3>\n';
+createLink(sLinkFolder);
+document.getElementById('messages').innerHTML  += '<h4>Ok.</h4>\n';
+/*
+ * Pasta "Programas" do Menu Iniciar
+ */
+var sLinkFolder = oShell.SpecialFolders('AllUsersPrograms') + '\\Prazos';
+document.getElementById('messages').innerHTML  += '<h3>Criando atalho na pasta "Prazos" do Menu Iniciar...</h3>\n';
+createLink(sLinkFolder);
+document.getElementById('messages').innerHTML  += '<h4>Ok.</h4>\n';
+document.getElementById('messages').innerHTML  += '<h3>Programa instalado com sucesso.</h3>\n';
+document.getElementById('messages').innerHTML  += '<h3>Feche esta janela e inicie o programa "Contagem de Prazos" através de um dos atalhos criados.</h3>\n';
+// }}}
+        </script>
+    </head>
+    <body>
+        <div id="messages"></div>
+    </body>
+    <!--
+vim:enc=utf-8
+    -->
+<html>
